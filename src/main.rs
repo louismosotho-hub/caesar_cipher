@@ -1,31 +1,5 @@
-use clap::{Parser, Subcommand};
 use std::io::{self, Write};
 use caesar_cipher::{encrypt, decrypt, brute_force};
-
-#[derive(Parser)]
-#[command(author, version, about)]
-struct Cli {
-    #[command(subcommand)]
-    command: Commands,
-}
-
-#[derive(Subcommand)]
-enum Commands {
-
-    Encrypt {
-        plaintext: String,
-        shift: u8,
-    },
-
-    Decrypt {
-        ciphertext: String,
-        shift: u8,
-    },
-
-    BruteForce {
-        ciphertext: String,
-    },
-}
 
 fn main() {
     println!("Caesar Cipher CLI");

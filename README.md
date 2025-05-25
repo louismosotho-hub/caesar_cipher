@@ -39,16 +39,6 @@ Ciphertext: Mjqqt, btwqi!
 
 A wordlist is used to provide a predefined set of words for the brute-force process. This significantly reduces the time and computational effort compared to trying every possible combination of characters. By using a wordlist like `wordlist.txt` or any large collection of common words, the brute-force method focuses on likely candidates, increasing the chances of success.
 
-Place your `wordlist.txt` file in the project root directory.
-
-## Testing
-
-To run the unit tests:
-
-```sh
-cargo test
-```
-
 ## Project Structure
 
 ```
@@ -62,6 +52,10 @@ caesar_cipher/
 └── README.md
 ```
 
-## Dependencies
+## Testing
 
-- [clap](https://crates.io/crates/clap) for CLI parsing
+To run the unit tests:
+
+```sh
+cargo test
+```
