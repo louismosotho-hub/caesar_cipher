@@ -37,7 +37,7 @@ Ciphertext: Mjqqt, btwqi!
 
 ## Wordlist
 
-A wordlist is used to provide a predefined set of words for the brute-force process. This significantly reduces the time and computational effort compared to trying every possible combination of characters. By using a wordlist like `wordlist.txt` or any large collection of common words, the brute-force method focuses on likely candidates, increasing the chances of success.
+A wordlist is used to provide a predefined set of words for the brute-force process. This significantly reduces the time and computational effort compared to trying every possible combination of characters. By using a wordlist like [`wordlist.txt`](https://www.mit.edu/~ecprice/wordlist.10000) or any large collection of common words, the brute-force method focuses on likely candidates, increasing the chances of success.
 
 ## Project Structure
 
