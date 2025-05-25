@@ -1,4 +1,4 @@
-# Caesar Cipher
+# Caesar Cipher CLI
 
 A simple command-line tool for encrypting, decrypting, and brute-forcing Caesar ciphers, written in Rust.
 
@@ -8,6 +8,7 @@ A simple command-line tool for encrypting, decrypting, and brute-forcing Caesar 
 - **Decrypt** ciphertext with a known shift
 - **Brute-force** decrypt ciphertext without knowing the shift
 - Preserves punctuation, spaces, and case
+- Interactive CLI mode for guided user input
 
 ## Usage
 
@@ -17,37 +18,49 @@ A simple command-line tool for encrypting, decrypting, and brute-forcing Caesar 
 cargo build
 ```
 
-### Run
-
-#### Encrypt
+### Run (Interactive CLI)
 
 ```sh
-cargo run -- encrypt 'Hello, world!' 5
-# Output: Ciphertext: Mjqqt, btwqi!
+cargo run
 ```
 
-#### Decrypt
+You will be guided through prompts:
 
-```sh
-cargo run -- decrypt 'Mjqqt, btwqi!' 5
-# Output: Plaintext: Hello, world!
 ```
-
-#### Brute-force
-
-```sh
-cargo run -- brute-force 'Mjqqt, btwqi!'
-# Output:
-# Best shift: 5
-# Plaintext: Hello, world!
+Caesar Cipher CLI
+-----------------
+Enter mode (encrypt/decrypt/bruteforce): encrypt
+Enter text: Hello, world!
+Enter shift (0-25): 5
+Ciphertext: Mjqqt, btwqi!
 ```
-
-> **Note:**  
-> If your input contains special shell characters (like `!`), use single quotes `'...'` to avoid shell issues.
 
 ## Wordlist
 
 A wordlist is used to provide a predefined set of words for the brute-force process. This significantly reduces the time and computational effort compared to trying every possible combination of characters. By using a wordlist like `wordlist.txt` or any large collection of common words, the brute-force method focuses on likely candidates, increasing the chances of success.
+
+Place your `wordlist.txt` file in the project root directory.
+
+## Testing
+
+To run the unit tests:
+
+```sh
+cargo test
+```
+
+## Project Structure
+
+```
+caesar_cipher/
+├── src/
+│   ├── main.rs
+│   └── lib.rs
+├── tests/
+│   └── test.rs
+├── wordlist.txt
+└── README.md
+```
 
 ## Dependencies
 

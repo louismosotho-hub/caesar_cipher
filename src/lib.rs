@@ -12,32 +12,38 @@ fn load_wordlist(path: &str) -> HashSet<String> {
         .collect()
 }
 
+// Helper to check shift is in range
+fn validate_shift(shift: u8) {
+    if shift > 25 {
+        panic!("Shift must be between 0 and 25");
+    }
+}
+
+// Helper to shift a single character
+fn shift_char(c: char, shift: i8) -> char {
+    if c.is_ascii_alphabetic() {
+        let base = if c.is_ascii_uppercase() { b'A' } else { b'a' };
+        let shifted = ((c as u8 - base) as i8 + shift).rem_euclid(26) as u8 + base;
+        shifted as char
+    } else {
+        c
+    }
+}
+
 pub fn encrypt(plaintext: &str, shift: u8) -> String {
-    let shift = shift % 26;
+    validate_shift(shift);
     let mut ciphertext = String::new();
     for c in plaintext.chars() {
-        if c.is_ascii_alphabetic() {
-            let base = if c.is_ascii_uppercase() { b'A' } else { b'a' };
-            let shifted = ((c as u8 - base + shift) % 26) + base;
-            ciphertext.push(shifted as char);
-        } else {
-            ciphertext.push(c);
-        }
+        ciphertext.push(shift_char(c, shift as i8));
     }
     ciphertext
 }
 
 pub fn decrypt(ciphertext: &str, shift: u8) -> String {
-    let shift = shift % 26;
+    validate_shift(shift);
     let mut plaintext = String::new();
     for c in ciphertext.chars() {
-        if c.is_ascii_alphabetic() {
-            let base = if c.is_ascii_uppercase() { b'A' } else { b'a' };
-            let shifted = ((c as u8 - base + 26 - shift) % 26) + base;
-            plaintext.push(shifted as char);
-        } else {
-            plaintext.push(c);
-        }
+        plaintext.push(shift_char(c, -(shift as i8)));
     }
     plaintext
 }
@@ -47,7 +53,6 @@ pub fn brute_force(ciphertext: &str) -> (u8, String) {
     let mut best_score = 0;
     let mut best_shift = 0;
 
-    // Try all possible shifts and score by word matches
     for shift in 0..=25 {
         let decrypted = decrypt(ciphertext, shift);
         let lower = decrypted.to_lowercase();
@@ -60,6 +65,5 @@ pub fn brute_force(ciphertext: &str) -> (u8, String) {
             best_shift = shift;
         }
     }
-    // Always return the full decryption using the best shift found
     (best_shift, decrypt(ciphertext, best_shift))
 }

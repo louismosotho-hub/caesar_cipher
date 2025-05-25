@@ -7,9 +7,11 @@ fn test_encrypt_in_range() {
 }
 
 #[test]
-fn test_encrypt_out_of_range() {
-    assert_eq!(encrypt("abc", 29), "def"); // 29 % 26 == 3
-    assert_eq!(encrypt("xyz", 28), "zab"); // 28 % 26 == 2
+fn test_encrypt_out_of_range_panics() {
+    let result = std::panic::catch_unwind(|| encrypt("abc", 29));
+    assert!(result.is_err());
+    let result = std::panic::catch_unwind(|| encrypt("xyz", 28));
+    assert!(result.is_err());
 }
 
 #[test]
@@ -19,9 +21,11 @@ fn test_decrypt_in_range() {
 }
 
 #[test]
-fn test_decrypt_out_of_range() {
-    assert_eq!(decrypt("def", 29), "abc");
-    assert_eq!(decrypt("zab", 28), "xyz");
+fn test_decrypt_out_of_range_panics() {
+    let result = std::panic::catch_unwind(|| decrypt("def", 29));
+    assert!(result.is_err());
+    let result = std::panic::catch_unwind(|| decrypt("zab", 28));
+    assert!(result.is_err());
 }
 
 #[test]
